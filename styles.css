@@ -1,0 +1,527 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap');
+
+
+
+:root {
+  --bg-main: #f8ba72;       /* Le beige crème signature de la marque */
+  --bg-card: #F4EBE1;       /* Crème plus clair pour les contrastes */
+  --primary: #F86624;      /* Orange Pouletos vibrant */
+  --primary-hover: #E05313;
+  --dark: #111111;         /* Noir pur pour les textes et bordures */
+  --white: #FFFFFF;
+  --gray: #666666;
+  --shadow: 6px 6px 0px var(--dark);
+  --border-radius: 24px;
+}
+
+/* Reset CSS moderne pour le SEO & l'accessibilité */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main); /* L'orange vif remplit toute la page uniformément */
+  font-family: 'Poppins', sans-serif;
+  color: var(--dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   NOUVEAU : COUCHE POUR LES LOGOS UNIQUEMENT SUR LES CÔTÉS
+   ========================================================================== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* On charge l'image en mosaïque */
+  background-image: url('assets/fond-pouletos.png');
+  background-repeat: repeat;
+  background-size: 140px;
+  background-blend-mode: multiply;
+  background-color: var(--bg-main);
+  
+  /* === LES AJOUTS ICI POUR FONDRE ET GRISER === */
+  filter: grayscale(80%) brightness(1.1) !important;
+  opacity: 0.25 !important; /* Ajuste entre 0.10 et 0.25 selon tes préférences */
+  
+  /* L'élément magique : le masque CSS. */
+  letter-spacing: normal;
+  mask-image: linear-gradient(to right, 
+    black 0%, 
+    black 10%, 
+    transparent 15%, 
+    transparent 85%, 
+    black 90%, 
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(to right, 
+    black 0%, 
+    rgba(0,0,0,1) 10%, 
+    rgba(0,0,0,0) 20%, 
+    rgba(0,0,0,0) 80%, 
+    rgba(0,0,0,1) 90%, 
+    rgba(0,0,0,1) 100%
+  );
+
+  /* On place cette couche sous vos textes et votre carte de roulette */
+  z-index: 0; 
+  pointer-events: none; /* Évite de bloquer les clics sur le site */
+}
+
+
+
+
+
+
+/* On s'assure que le contenu reste bien au-dessus des logos */
+.top-bar, .container, h1, p, .badge {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ==========================================================================
+   2. TYPOGRAPHIES & CONTENUS ACCESSIBLES (SEO FRIENDLY)
+   ========================================================================== */
+.badge {
+  background-color: var(--dark);
+  color: var(--white);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 19px;
+  display: inline-block;
+
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: -0.03em;
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: bold; 
+  color: rgb(65, 64, 64);
+  text-align: center;
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+
+/* ==========================================================================
+   3. STRUCTURE DU CONTENEUR (STYLE NEUBRUTALIST / PREMIUM)
+   ========================================================================== */
+.container {
+  background-color: var(--bg-card);
+  border: 3px solid var(--dark);
+  border-radius: var(--border-radius);
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Formulaires épurés et haut de gamme */
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border: 2px solid var(--dark);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: var(--white);
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(248, 102, 36, 0.15);
+}
+
+/* ==========================================================================
+   4. BOUTONS & INTERACTIONS D'ENGAGEMENT
+   ========================================================================== */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--white);
+  color: var(--dark);
+  border: 2px solid var(--dark);
+  padding: 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 3px 3px 0px var(--dark);
+}
+
+.google-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--dark);
+}
+
+.google-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px var(--dark);
+}
+
+/* Checkbox épurée */
+.checkbox {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 10px;
+  margin-bottom: 32px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+/* Bouton d'Action Principal de Lancement */
+.spin-btn {
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--white);
+  border: 2px solid var(--dark);
+  padding: 18px;
+  border-radius: 16px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px var(--dark);
+  transition: all 0.15s cubic-bezier(0.165, 0.84, 0.44, 1);
+  margin-top: 24px;
+}
+
+.spin-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--dark);
+}
+
+.spin-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0px var(--dark);
+}
+
+/* ==========================================================================
+   5. LA ROUE (ANIMATION OPTIMISÉE HAUTE PERFORMANCE GPU)
+   ========================================================================== */
+.wheel-wrapper {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Le pointeur / flèche */
+.pointer {
+  position: absolute;
+  top: -15px; /* Légèrement descendu pour bien mordre sur la roue */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 40px;
+  z-index: 10;
+  
+  /* Un joli dégradé Pouletos allant du rouge au orange vif */
+  background: linear-gradient(135deg, #000000);
+  
+  /* Découpe en forme de flèche pointant vers le bas */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 50% 100%, 0% 50%);
+  
+  /* Bordure supérieure et ombre propre à la flèche */
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  
+  /* Préparation pour les performances de l'animation */
+  will-change: transform;
+  transform-origin: top center;
+}
+
+/* La classe d'animation qui sera déclenchée en JavaScript */
+.pointer.ticking {
+  animation: pointerTick 0.15s ease-out;
+}
+
+/* L'effet de rebond réaliste (la flèche remonte puis retombe) */
+@keyframes pointerTick {
+  0% { transform: translateX(-50%) rotate(0deg) scaleY(1); }
+  30% { transform: translateX(-50%) rotate(-15deg) scaleY(0.85); top: -18px; }
+  100% { transform: translateX(-50%) rotate(0deg) scaleY(1); top: -15px; }
+}
+
+/* Canvas de la roue */
+#wheel {
+  border: 6px solid var(--dark);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0px var(--dark);
+  max-width: 100%;
+  height: auto;
+  
+  /* L'élément clé d'optimisation : cubic-bezier haut de gamme pour l'effet casino */
+  will-change: transform;
+  transform: rotate(0deg);
+  transition: transform 5.2s cubic-bezier(0.15, 0.88, 0.3, 1);
+}
+
+/* Centre de la roue épuré */
+.center-logo {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background-color: var(--white);
+  border: 4px solid var(--dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  z-index: 5;
+  box-shadow: 2px 2px 0px var(--dark);
+}
+
+/* ==========================================================================
+   6. INTERFACES DE SORTIE & RÈGLES
+   ========================================================================== */
+.result {
+  display: none;
+  width: 100%;
+  background-color: var(--white);
+  border: 3px solid var(--dark);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 24px;
+  box-shadow: 4px 4px 0px var(--primary);
+}
+
+.conditions {
+  width: 100%;
+  border-top: 2px dashed #E2D7CC;
+  padding-top: 20px;
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+.conditions strong {
+  color: var(--dark);
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.conditions ul {
+  padding-left: 16px;
+}
+
+.conditions li {
+  margin-bottom: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+/* Style du bouton lorsqu'il est bloqué (disabled) */
+.spin-btn:disabled {
+  background-color: #cccccc !important; /* Gris clair */
+  color: #666666 !important;            /* Texte gris foncé */
+  cursor: not-allowed;                  /* Curseur en forme de panneau interdit */
+  box-shadow: none !important;          /* On retire l'effet 3D */
+  transform: none !important;           /* On bloque les mouvements au survol */
+}
+
+
+
+
+
+
+
+
+
+/* RESPONSIVE */
+
+/* ==========================================================================
+   ADAPTATION MOBILE COMPLÈTE (Écrans inférieurs à 450px de large)
+   ========================================================================== */
+@media (max-width: 450px) {
+  /* On réduit légèrement les marges internes de la boîte */
+  .container {
+    padding: 25px 15px;
+  }
+
+  /* On force la boîte de la roue à s'adapter à la largeur disponible */
+  .wheel-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1; /* Conserve un carré parfait pour que la roue reste ronde */
+    max-width: 340px;    /* Taille maximale sur petit mobile pour ne pas toucher les bords */
+    margin: 15px auto;
+  }
+
+  /* On force le canvas à occuper 100% de l'espace de son wrapper */
+  #wheel {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* On ajuste la taille des titres pour les petits écrans */
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   BARRE SUPÉRIEURE (RETOUR + BADGE)
+   ========================================================================== */
+.top-bar {
+  display: flex;
+  justify-content: space-between; /* Propulse le bouton à gauche et le badge à droite */
+  align-items: center;
+  width: 100%;
+  max-width: 500px;               /* Aligné sur la largeur de votre conteneur de roue */
+  margin: 0 auto 70px auto;       /* Centre la barre à l'écran et pousse le titre vers le bas */
+  padding: 1px;                /* Évite que les boutons ne collent trop aux bords de l'écran */
+}
+
+/* Style personnalisé pour le bouton Retour */
+/* Style sémantique pour le bouton Retour */
+.back-btn {
+  background-color: var(--white);
+  color: var(--dark);
+  border: 2px solid var(--dark);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 3px 3px 0px var(--dark);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  
+  /* --- SÉCURITÉS POUR LA BALISE BUTTON --- */
+  font-family: 'Poppins', sans-serif; /* Force la police Poppins */
+  cursor: pointer;                    /* Remet le curseur en forme de main au survol */
+  outline: none;                      /* Retire le contour bleu par défaut */
+}
+
+/* Les effets au survol restent les mêmes */
+.back-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--dark);
+}
+
+.back-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--dark);
+}
+/* Ajustement de sécurité pour votre badge existant */
+.badge {
+  margin: 0 !important; /* Annule les anciennes marges pour qu'il s'aligne proprement */
+}
+
+
+input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(248, 102, 36, 0.15);
+}
+/* --- ÉTAT PRÉNOM VALIDE (VERT) --- */
+input[type="text"].valid-name,
+input[type="text"].valid-name:focus {
+  border: 3px solid #43BCCD !important; /* Même vert cyan */
+  background-color: #f0fbfd !important;
+  box-shadow: 0 0 0 4px rgba(67, 188, 205, 0.2) !important;
+}
+
+/* --- ÉTAT PAR DÉFAUT EN FOCUS POUR L'EMAIL --- */
+input[type="email"]:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px rgba(248, 102, 36, 0.15) !important;
+  background-color: var(--white) !important;
+}
+
+/* --- ÉTAT EMAIL VALIDE (VERT) --- */
+input[type="email"].valid-email,
+input[type="email"].valid-email:focus {
+  border: 3px solid #43BCCD !important; /* Le bleu/vert cyan de ta charte Pouletos */
+  background-color: #f0fbfd !important;
+  box-shadow: 0 0 0 4px rgba(67, 188, 205, 0.2) !important;
+}
+
+/* --- ÉTAT EMAIL INVALIDE (ROUGE) --- */
+input[type="email"].invalid-email,
+input[type="email"].invalid-email:focus {
+  border: 3px solid #EA3546 !important; /* Le rouge de ta charte */
+  background-color: #FFF5F5 !important;
+  box-shadow: 0 0 0 4px rgba(234, 53, 70, 0.2) !important;
+}
+
+
+
+/* Change le curseur en icône de blocage au survol si la case est désactivée */
+input[type="checkbox"]:disabled,
+input[type="checkbox"]:disabled + label {
+  cursor: not-allowed !important;
+  opacity: 0.6; /* Optionnel : rend le texte un poil plus clair pour montrer que c'est bloqué */
+}

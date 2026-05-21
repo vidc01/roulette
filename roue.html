@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Roulette de chez Pouletos</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  
+
+</head>
+
+<body>
+  <div class="top-bar">
+    <button class="back-btn" onclick="window.location.href='https://www.pouletos.com';">⬅️ Retour</button>
+    <div class="badge">🍗 100% gagnant</div>
+  </div>
+
+  <h1>La Roulette Pouletos !</h1>
+
+  <p>
+    Tente ta chance avec notre roulette 100% gagnante.
+    <br>
+    Laisse un avis Google, confirme ta participation, puis lance la roue.
+  </p>
+
+  <div class="container">
+
+    <input type="text" id="name" placeholder="Ton prénom">
+    <input type="email" id="email" placeholder="Ton email">
+
+    <a
+      class="google-btn"
+      href="https://www.google.com/search?sca_esv=97234541236c36f9&rlz=1C5CHFA_enFR932FR932&sxsrf=ANbL-n42_OxsiJBZLuGmN1tNDbjCSogX2A:1778080130140&q=pouletos+bel+est&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qORLPqLTFYAUKSVkp1DoxwXSMezolWfhb4xxEKotpbBT-6VSJph4tFTZmbREoM1V5vm3H7dA%3D&uds=ALYpb_k6otuSYDT1zFYqBpNGDSzKsjpDir9igN7fooFY0t5XMkanWLLmDCXw2OeZDJV25U8Za4roBXXz79BCYVeJtE4clUE11hjEK7MG608s6jMsGkzVwds&sa=X&ved=2ahUKEwjWy6fU-KSUAxXUV6QEHd0SDccQ3PALegQIGRAE&biw=1440&bih=782&dpr=2"
+      target="_blank"
+    >
+      ⭐ Laisser mon avis Google !
+    </a>
+
+    <div class="checkbox">
+      <input type="checkbox" id="check" disabled>
+      <label for="check">J’ai laissé un avis Google</label>
+    </div>
+
+    <div class="wheel-wrapper">
+      <div class="wheel-glow"></div>
+      <div class="pointer"></div>
+      <canvas id="wheel" width="400" height="400"></canvas>
+      <div class="center-logo">🍗</div>
+    </div>
+
+    <button class="spin-btn" id="spin-btn" onclick="spinWheel()" disabled>
+      Lancer la roulette
+    </button>
+
+    <div class="result" id="result"></div>
+
+    <div class="conditions">
+      <strong>Conditions :</strong>
+      <ul>
+        <li>Le lot ne peut PAS être récupéré le jour même.</li>
+        <li>Le lot est récupérable à partir du lendemain.</li>
+        <li>Le lot est envoyé par email.</li>
+        <li>Valable 1 mois.</li>
+        <li>Condition d’achat obligatoire.</li>
+        <li>Un seul gain par personne.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  
+
+</body>
+</html>
