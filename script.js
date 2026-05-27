@@ -85,10 +85,9 @@ function weightedRandom() {
 let spinning = false;
 let currentRotation = 0;
 
-// --- INITIALISATION DU SYNTHÉTISEUR DE SONS NATIFS ---
+// --- SYNTHÉTISEUR DE SONS NATIFS ---
 const audioCtx = new (globalThis.AudioContext || globalThis.webkitAudioContext)();
 
-// Génère un bruit sec mécanique (Le "Tick" de la roulette)
 function playNativeTick() {
   if (audioCtx.state === 'suspended') audioCtx.resume();
   
@@ -108,7 +107,6 @@ function playNativeTick() {
   osc.stop(audioCtx.currentTime + 0.04);
 }
 
-// Génère une mélodie de victoire ascendante (La fanfare Pouletos)
 function playNativeWin() {
   if (audioCtx.state === 'suspended') audioCtx.resume();
   
@@ -134,28 +132,18 @@ function playNativeWin() {
   });
 }
 
-// ajout vicotr pour sureté
-// --- SÉCURITÉ CASE À COCHER / BOUTON GOOGLE ---
+// --- BOUTON GOOGLE ---
 const googleButton = document.querySelector(".google-btn");
-
 googleButton.addEventListener("click", function() {
-  // Dès qu'on clique sur le bouton Google, on active la case à cocher
   checkbox.removeAttribute("disabled");
 });
 
-
-
-
-
-// 1. Récupération des 3 éléments de formulaire et du bouton pour verif et dégrisé spin-btn
+// --- FORMULAIRE ---
 const inputName = document.getElementById("name");
 const inputEmail = document.getElementById("email");
 const checkbox = document.getElementById("check");
 const spinButton = document.getElementById("spin-btn");
 
-
-
-// modif pour couleurs
 function checkFormValidity() {
   const nameValue = inputName.value.trim();
   const emailValue = inputEmail.value.trim();
@@ -164,14 +152,12 @@ function checkFormValidity() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isEmailValid = emailRegex.test(emailValue);
 
-  // --- GESTION DYNAMIQUE DES COULEURS : PRÉNOM ---
   if (nameValue === "") {
     inputName.classList.remove("valid-name");
   } else {
     inputName.classList.add("valid-name");
   }
 
-  // --- GESTION DYNAMIQUE DES COULEURS : EMAIL ---
   if (emailValue === "") {
     inputEmail.classList.remove("invalid-email", "valid-email");
   } else if (isEmailValid) {
@@ -182,7 +168,6 @@ function checkFormValidity() {
     inputEmail.classList.add("invalid-email");
   }
 
-  // --- ACTIVATION DU BOUTON ---
   if (nameValue !== "" && isEmailValid && isChecked) {
     spinButton.removeAttribute("disabled"); 
   } else {
@@ -190,38 +175,71 @@ function checkFormValidity() {
   }
 }
 
-
-
-// 3. On écoute les changements en temps réel et à la perte de focus
 inputName.addEventListener("input", checkFormValidity);
 inputEmail.addEventListener("input", checkFormValidity);
 checkbox.addEventListener("change", checkFormValidity);
-
-// Force la vérification (et le maintien du rouge) quand on clique ailleurs
 inputEmail.addEventListener("blur", checkFormValidity);
 
+// --- ENVOI DE MAIL VIA LA FONCTION SÉCURISÉE ---
+async function sendConfirmationEmail(nomClient, emailClient, lot, code) {
+  try {
+    const reponse = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ emailClient, nomClient, lot, code })
+    });
+
+    if (!reponse.ok) {
+      console.error("Erreur lors de l'envoi du mail de confirmation.");
+    }
+  } catch (err) {
+    console.error("Impossible de contacter la fonction d'envoi :", err);
+  }
+}
+
+// --- ROULETTE ---
 function spinWheel() {
-  if(spinning) return;
+  if (spinning) return;
 
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const checked = document.getElementById("check").checked;
 
-  if(!name || !email) {
+  if (!name || !email) {
     alert("Merci de remplir les champs.");
     return;
   }
 
-  if(!checked) {
+  if (!checked) {
     alert("Merci de confirmer que vous avez laissé un avis Google.");
     return;
   }
 
+  // --- VÉRIFICATION 24H PAR EMAIL ---
+  const storageKey = "pouletos_spin_" + email.toLowerCase();
+  const existingEntry = localStorage.getItem(storageKey);
+
+  if (existingEntry) {
+    const { timestamp } = JSON.parse(existingEntry);
+    const elapsed = Date.now() - timestamp;
+    const twentyFourHours = 24 * 60 * 60 * 1000;
+
+    if (elapsed < twentyFourHours) {
+      const remaining = twentyFourHours - elapsed;
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+
+      alert(`⏳ Tu as déjà joué avec cette adresse email.\nReviens dans ${hours}h ${minutes}min ou utilise une autre adresse.`);
+      return;
+    }
+  }
+
   spinning = true;
+  spinButton.setAttribute("disabled", "true");
 
   const winner = weightedRandom();
   const index = segments.findIndex(s => s.text === winner.text);
-  
+
   const degreesPerSegment = 360 / segments.length;
   const targetAngle = 270 - (index * degreesPerSegment) - (degreesPerSegment / 2);
   const randomExtraTurns = 6 * 360;
@@ -231,39 +249,40 @@ function spinWheel() {
 
   canvas.style.transform = `rotate(${currentRotation}deg)`;
 
-  // --- GESTION ET CALCUL DU RALENTISSEMENT DES TICS AUDIO ---
+  // --- TICKS AUDIO ---
   let currentTickAngle = 0;
-  const totalRotationDuration = 5200; // Calé sur la transition CSS
+  const totalRotationDuration = 5200;
   const startTime = performance.now();
 
   function trackTicks(now) {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / totalRotationDuration, 1);
-    
-    // Reproduit la courbe d'amortissement de la roulette
-    const easeProgress = 1 - Math.pow(1 - progress, 3); 
+    const easeProgress = 1 - Math.pow(1 - progress, 3);
     const animatedAngle = easeProgress * (randomExtraTurns + ((targetAngle - currentNormalizedRotation + 360) % 360));
 
-    // Si on franchit la distance d'un segment, on émet le son
     if (animatedAngle - currentTickAngle >= degreesPerSegment) {
       playNativeTick();
       currentTickAngle = animatedAngle;
     }
 
-    if (progress < 1) {
-      requestAnimationFrame(trackTicks);
-    }
+    if (progress < 1) requestAnimationFrame(trackTicks);
   }
   requestAnimationFrame(trackTicks);
-  // ----------------------------------------------------------
 
   setTimeout(() => {
-    // Déclenchement de la musique de victoire
     playNativeWin();
 
-    const code =
-      "POULETOS-" +
-      Math.random().toString(36).substring(2,8).toUpperCase();
+    // --- ENREGISTREMENT EN LOCALSTORAGE ---
+    localStorage.setItem(storageKey, JSON.stringify({
+      timestamp: Date.now(),
+      name: name,
+      prize: winner.text
+    }));
+
+    const code = "POULETOS-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    // --- ENVOI DU MAIL DE CONFIRMATION ---
+    sendConfirmationEmail(name, email, winner.text, code);
 
     const resultBox = document.getElementById("result");
     resultBox.style.display = "block";
@@ -273,12 +292,13 @@ function spinWheel() {
       Tu as gagné : <strong>${winner.text}</strong><br><br>
       Code unique : <strong>${code}</strong><br><br>
       📩 Ton lot vient de t'être envoyé à l'adresse <em>${email}</em>.<br><br>
-      ⚠️ <strong>Rappel :</strong> Le lot ne peut PAS être récupéré aujourd’hui.<br>
+      ⚠️ <strong>Rappel :</strong> Le lot ne peut PAS être récupéré aujourd'hui.<br>
       Il est valable à partir de demain pendant 1 mois,<br>
-      avec condition d’achat.
+      avec condition d'achat.
     `;
 
     spinning = false;
+    // Le bouton reste désactivé volontairement
 
   }, totalRotationDuration);
 }
