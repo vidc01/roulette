@@ -111,6 +111,31 @@ body::before {
   display: inline-block;
 
 }
+.badge-brand {
+  background-color: var(--dark);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.2;
+}
+
+.badge-brand .jp-text {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.badge-brand .sub-text {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #ffd000; /* Jaune or pour faire ressortir le "100% Gagnant" */
+  margin-top: 2px;
+}
+
 
 h1 {
   font-size: 2.5rem;
@@ -534,4 +559,27 @@ input[type="checkbox"]:disabled,
 input[type="checkbox"]:disabled + label {
   cursor: not-allowed !important;
   opacity: 0.6; /* Optionnel : rend le texte un poil plus clair pour montrer que c'est bloqué */
+}
+
+/* ===== FOOTER ===== */
+
+.footer{
+  margin-top:40px;
+  text-align:center;
+  color:#111;
+  font-weight:700;
+  font-size:.95rem;
+}
+
+.footer span{
+  color:#F86624;
+  font-weight:900;
+}
+
+.footer-jp{
+  margin-top:8px;
+  font-size:1rem;
+  letter-spacing:4px;
+  color:#ff5e00;
+  font-weight:900;
 }
