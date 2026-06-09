@@ -4,22 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>La Roulette de chez Pouletos</title>
-
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
-  
-
 </head>
 
 <body>
   <div class="top-bar">
     <button class="back-btn" onclick="window.location.href='https://www.pouletos.com';">⬅️ Retour</button>
     <div class="badge-brand">
-  <span class="jp-text">ポウレトス</span>
-  <span class="sub-text">100% GAGNANT</span>
-</div>
+      <span class="jp-text">ポウレトス</span>
+      <span class="sub-text">100% GAGNANT</span>
+    </div>
   </div>
-  
 
   <h1>Tournez la roue, gagnez gros !</h1>
 
@@ -34,17 +30,92 @@
     <input type="text" id="name" placeholder="Ton prénom">
     <input type="email" id="email" placeholder="Ton email">
 
-    <a
+    <button
       class="google-btn"
-      href="https://www.google.com/search?sca_esv=97234541236c36f9&rlz=1C5CHFA_enFR932FR932&sxsrf=ANbL-n42_OxsiJBZLuGmN1tNDbjCSogX2A:1778080130140&q=pouletos+bel+est&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qORLPqLTFYAUKSVkp1DoxwXSMezolWfhb4xxEKotpbBT-6VSJph4tFTZmbREoM1V5vm3H7dA%3D&uds=ALYpb_k6otuSYDT1zFYqBpNGDSzKsjpDir9igN7fooFY0t5XMkanWLLmDCXw2OeZDJV25U8Za4roBXXz79BCYVeJtE4clUE11hjEK7MG608s6jMsGkzVwds&sa=X&ved=2ahUKEwjWy6fU-KSUAxXUV6QEHd0SDccQ3PALegQIGRAE&biw=1440&bih=782&dpr=2"
-      target="_blank"
+      id="open-restaurant-modal"
+      onclick="openRestaurantModal()"
+      type="button"
     >
       ⭐ Laisser mon avis Google !
-    </a>
+    </button>
+
+    <!-- POPUP CHOIX DU RESTAURANT -->
+    <div id="restaurant-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.55); z-index:1000; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title">Votre centre commercial</div>
+            <div class="modal-subtitle">Sélectionnez votre Pouletos pour laisser un avis</div>
+          </div>
+          <button class="modal-close-btn" onclick="closeRestaurantModal()" aria-label="Fermer">✕</button>
+        </div>
+
+<div class="modal-restaurant-list">
+
+  <div class="modal-region-label">⭐️  Nos restaurants<span style="font-size:10px; color:#27ae60; font-weight:700;"></span></div>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJnZhPa19t5kcRQSSiqOLhGFI" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Bel-Est (Bagnolet)</div><div class="modal-resto-address">28 Ave du Général de Gaulle 93700 Bagnolet</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJyZqenjPZ5UcR24qEivvNZJg" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Ville du Bois</div><div class="modal-resto-address">5 Rue de la Croix Saint-Jacques 91620</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJo_dBi_cX5kcRJRWopvePEp0" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Beau Sevran</div><div class="modal-resto-address">Route des Petits Ponts 93270 Sevran</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJhejIKcvn5UcRtS6gMNlvPHk" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Villabé</div><div class="modal-resto-address">Rte de Villoison 91100 Corbeil-Essonnes</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJga_jVQB75kcR5s80Mfn9eOY" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Issy 3 Moulins</div><div class="modal-resto-address">3 All. Sainte-Lucie 92130 Issy-les-Moulineaux</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJBX0BdDJz5kcRhpU8fyI-USI" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Bercy 2 (Charenton)</div><div class="modal-resto-address">02 Place de l'Europe 94220 Charenton</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJexBYAVpx5kcR-5CobvnK2oY" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC La Vache Noire (Arcueil)</div><div class="modal-resto-address">RN 20 Place de la Vache Noire Arcueil</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJ82nWvsfk5UcR2AULyUnmh8w" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Boissenart (Cesson)</div><div class="modal-resto-address">RN 6 77240 Cesson</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=Ei5Bdi4gSm9oYW5uZXMgR3V0ZW5iZXJnLCA3ODMxMCBNYXVyZXBhcywgRnJhbmNlIi4qLAoUChIJ5Zi_RTeD5kcRh0Td7piEfmMSFAoSCbXaknlFg-ZHEXA8jGjDggsE" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Aushopping Maurepas</div><div class="modal-resto-address">Av. Johannes Gutenberg 78310 Maurepas</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+  <a class="modal-resto-item" href="https://search.google.com/local/writereview?placeid=ChIJbYy8UAeF5kcRiWTllQ0pWOc" target="_blank" onclick="onRestaurantClick()">
+    <div><div class="modal-resto-name">CC Grand Plaisir</div><div class="modal-resto-address">161 Chem. Départemental 78370 Plaisir</div></div>
+    <span class="modal-badge modal-badge-maps">⭐ Avis</span>
+  </a>
+  
+
+</div>
+
+        <div class="modal-legend">
+          
+        </div>
+      </div>
+    </div>
+    <!-- FIN POPUP -->
 
     <div class="checkbox">
       <input type="checkbox" id="check" disabled>
-      <label for="check">J’ai laissé un avis Google</label>
+      <label for="check">J'ai laissé un avis Google</label>
     </div>
 
     <div class="wheel-wrapper">
@@ -69,24 +140,21 @@
         <li>Le lot est récupérable à partir du lendemain.</li>
         <li>Le lot est envoyé par email.</li>
         <li>Valable 1 mois.</li>
-        <li>Condition d’achat obligatoire.</li>
+        <li>Condition d'achat obligatoire.</li>
         <li>Un seul gain par personne.</li>
       </ul>
     </div>
 
   </div>
 
-  
-
 </body>
 <footer>
   <div class="footer">
-  🍗 Powered by <span>Pouletos</span>
-
-  <div class="footer-jp">
-    東京スタイル ・ チキンキング
+    🍗 Powered by <span>Pouletos</span>
+    <div class="footer-jp">
+      東京スタイル ・ チキンキング
+    </div>
   </div>
-</div>
 </footer>
 
 </html>

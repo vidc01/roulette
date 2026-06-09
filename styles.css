@@ -583,3 +583,163 @@ input[type="checkbox"]:disabled + label {
   color:#ff5e00;
   font-weight:900;
 }
+
+
+.modal-box {
+  background-color: var(--bg-card);
+  border: 3px solid var(--dark);
+  border-radius: var(--border-radius);
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: none;
+  font-family: 'Poppins', sans-serif;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+ 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+ 
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--dark);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+ 
+.modal-subtitle {
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-top: 4px;
+  font-weight: 500;
+}
+ 
+.modal-close-btn {
+  background: var(--dark);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: sans-serif;
+  transition: background 0.15s;
+}
+ 
+.modal-close-btn:hover {
+  background: var(--primary);
+}
+ 
+.modal-restaurant-list {
+  overflow-y: auto;
+  border: 2px solid var(--dark);
+  border-radius: 14px;
+  background: var(--white);
+  padding: 6px;
+  flex: 1;
+}
+ 
+.modal-restaurant-list::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-restaurant-list::-webkit-scrollbar-track {
+  background: #f0e8e0;
+  border-radius: 6px;
+}
+.modal-restaurant-list::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 6px;
+}
+ 
+.modal-region-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  padding: 10px 8px 4px;
+}
+ 
+.modal-resto-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.12s;
+  gap: 8px;
+  text-decoration: none;
+  border-bottom: 1px solid #f0e8e0;
+}
+ 
+.modal-resto-item:last-child {
+  border-bottom: none;
+}
+ 
+.modal-resto-item:hover {
+  background: #FFF3EC;
+}
+ 
+.modal-resto-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+ 
+.modal-resto-address {
+  font-size: 0.7rem;
+  color: var(--gray);
+  font-weight: 400;
+  margin-top: 2px;
+}
+ 
+.modal-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+ 
+.modal-badge-direct {
+  background: #E8F8EC;
+  color: #1a7a35;
+  border: 1.5px solid #43c25a;
+}
+ 
+.modal-badge-maps {
+  background: #FFF3CD;
+  color: #9a6700;
+  border: 1.5px dashed #F9C80E;
+}
+ 
+.modal-legend {
+  margin-top: 14px;
+  font-size: 0.72rem;
+  color: var(--gray);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+ 
+@media (max-width: 450px) {
+  .modal-box {
+    padding: 20px 14px;
+    max-height: 85vh;
+  }
+}

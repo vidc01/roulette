@@ -302,3 +302,34 @@ function spinWheel() {
 
   }, totalRotationDuration);
 }
+
+
+ // pop up liste deroulant
+function openRestaurantModal() {
+  const modal = document.getElementById("restaurant-modal");
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+ 
+function closeRestaurantModal() {
+  const modal = document.getElementById("restaurant-modal");
+  modal.style.display = "none";
+  document.body.style.overflow = "";
+}
+ 
+function onRestaurantClick() {
+  closeRestaurantModal();
+  const checkbox = document.getElementById("check");
+  checkbox.removeAttribute("disabled");
+  checkFormValidity();
+}
+ 
+// Fermer le modal en cliquant sur l'overlay (fond sombre)
+document.getElementById("restaurant-modal").addEventListener("click", function(e) {
+  if (e.target === this) closeRestaurantModal();
+});
+ 
+// Fermer avec la touche Echap
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeRestaurantModal();
+});
