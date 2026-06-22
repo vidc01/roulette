@@ -132,12 +132,6 @@ function playNativeWin() {
   });
 }
 
-// --- BOUTON GOOGLE ---
-const googleButton = document.querySelector(".google-btn");
-googleButton.addEventListener("click", function() {
-  checkbox.removeAttribute("disabled");
-});
-
 // --- FORMULAIRE ---
 const inputName = document.getElementById("name");
 const inputEmail = document.getElementById("email");
@@ -303,33 +297,42 @@ function spinWheel() {
   }, totalRotationDuration);
 }
 
-
- // pop up liste deroulant
+// --- POPUP RESTAURANT ---
 function openRestaurantModal() {
   const modal = document.getElementById("restaurant-modal");
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
 }
- 
+
 function closeRestaurantModal() {
   const modal = document.getElementById("restaurant-modal");
   modal.style.display = "none";
   document.body.style.overflow = "";
 }
- 
+
 function onRestaurantClick() {
   closeRestaurantModal();
   const checkbox = document.getElementById("check");
   checkbox.removeAttribute("disabled");
+  checkbox.checked = true;
   checkFormValidity();
 }
- 
-// Fermer le modal en cliquant sur l'overlay (fond sombre)
-document.getElementById("restaurant-modal").addEventListener("click", function(e) {
-  if (e.target === this) closeRestaurantModal();
-});
- 
-// Fermer avec la touche Echap
-document.addEventListener("keydown", function(e) {
-  if (e.key === "Escape") closeRestaurantModal();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".modal-resto-item").forEach(function(item) {
+    item.addEventListener("click", function() {
+      onRestaurantClick();
+    });
+  });
+
+  // Fermer le modal en cliquant sur l'overlay (fond sombre)
+  document.getElementById("restaurant-modal").addEventListener("click", function(e) {
+    if (e.target === this) closeRestaurantModal();
+  });
+
+  // Fermer avec la touche Échap
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") closeRestaurantModal();
+  });
 });
